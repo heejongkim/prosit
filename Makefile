@@ -4,7 +4,7 @@ MODEL_IRT ?= $(HOME)/model_irt/
 OUT_FOLDER ?= $(MODEL)
 HOSTPORT ?= 5000
 GPU ?= 0
-DOCKER = nvidia-docker
+DOCKER = docker
 IMAGE = prosit
 DOCKERFILE = Dockerfile
 
@@ -15,6 +15,7 @@ build:
 
 server: build
 	$(DOCKER) run -it \
+	    --runtime=nvidia \
 	    -v "$(MODEL_SPECTRA)":/root/model_spectra/ \
 	    -v "$(MODEL_IRT)":/root/model_irt/ \
 	    -e CUDA_VISIBLE_DEVICES=$(GPU) \
@@ -23,6 +24,7 @@ server: build
 
 jump: build
 	$(DOCKER) run -it \
+	    --runtime=nvidia \
 	    -v "$(MODEL_SPECTRA)":/root/model_spectra/ \
 	    -v "$(MODEL_IRT)":/root/model_irt/ \
 	    -v "$(DATA)":/root/data.hdf5 \
