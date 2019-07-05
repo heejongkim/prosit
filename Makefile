@@ -9,8 +9,7 @@ IMAGE = prosit
 DOCKERFILE = Dockerfile
 
 
-build:
-	$(DOCKER) build -qf $(DOCKERFILE) -t $(IMAGE) .
+build:  $(DOCKER) build -qf $(DOCKERFILE) -t $(IMAGE) .
 
 
 server: build
